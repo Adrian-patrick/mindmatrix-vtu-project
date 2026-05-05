@@ -1,0 +1,173 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Inter', sans-serif;
+}
+
+body {
+    background-color: #f0f2f5;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+.app-container {
+    width: 100%;
+    max-width: 414px; /* iPhone Max width */
+    height: 100vh;
+    max-height: 896px;
+    background-color: #F1F8E9;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+}
+
+@media (min-height: 897px) {
+    .app-container {
+        height: 896px;
+        border-radius: 30px;
+    }
+}
+
+.app-header {
+    background-color: #4CAF50;
+    color: white;
+    padding: 16px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    z-index: 10;
+}
+
+.app-header h1 {
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.chips-container {
+    display: flex;
+    overflow-x: auto;
+    padding: 12px 16px;
+    background-color: #4CAF50;
+    gap: 8px;
+    scrollbar-width: none; /* Firefox */
+}
+
+.chips-container::-webkit-scrollbar {
+    display: none; /* Chrome */
+}
+
+.chip {
+    padding: 6px 16px;
+    border-radius: 20px;
+    border: none;
+    background-color: rgba(255,255,255,0.2);
+    color: white;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: background-color 0.2s;
+}
+
+.chip.active {
+    background-color: white;
+    color: #388E3C;
+}
+
+.swiper {
+    width: 100%;
+    flex-grow: 1;
+    padding: 20px 16px 80px 16px;
+}
+
+.swiper-slide {
+    background-color: white;
+    border-radius: 16px;
+    box-shadow: 0 8px 16px rgba(0,0,0,0.08);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    height: 100%;
+    position: relative;
+}
+
+.card-image-container {
+    width: 100%;
+    height: 45%;
+    position: relative;
+}
+
+.card-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.success-label {
+    position: absolute;
+    top: 16px;
+    left: 16px;
+    background-color: #388E3C;
+    color: white;
+    padding: 4px 12px;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.card-content {
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    flex-grow: 1;
+}
+
+.farmer-name {
+    font-size: 16px;
+    color: #4CAF50;
+    font-weight: 600;
+}
+
+.instruction-eng {
+    font-size: 20px;
+    font-weight: 700;
+    color: #1a1a1a;
+    line-height: 1.4;
+}
+
+.instruction-kan {
+    font-size: 18px;
+    color: #4a4a4a;
+    line-height: 1.5;
+}
+
+.fab {
+    position: absolute;
+    bottom: 24px;
+    right: 24px;
+    background-color: #388E3C;
+    color: white;
+    border: none;
+    padding: 16px 20px;
+    border-radius: 30px;
+    font-size: 16px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    box-shadow: 0 4px 12px rgba(56, 142, 60, 0.4);
+    cursor: pointer;
+    z-index: 100;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.fab:active {
+    transform: scale(0.95);
+    box-shadow: 0 2px 8px rgba(56, 142, 60, 0.4);
+}

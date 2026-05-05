@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">Raitha-Varta</string>
+    <string name="ask_expert">Ask Expert</string>
+    <string name="success_story">Success Story</string>
+    <string name="all">All</string>
+    <string name="paddy">Paddy</string>
+    <string name="areca_nut">Areca nut</string>
+    <string name="coconut">Coconut</string>
+    <string name="tomato">Tomato</string>
+</resources>

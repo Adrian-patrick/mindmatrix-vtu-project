@@ -1,0 +1,9 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <style name="Base.Theme.RaithaVarta" parent="Theme.Material3.DayNight.NoActionBar">
+        <item name="colorPrimary">@color/green_500</item>
+        <item name="colorPrimaryDark">@color/green_700</item>
+        <item name="colorAccent">@color/green_500</item>
+    </style>
+
+    <style name="Theme.RaithaVarta" parent="Base.Theme.RaithaVarta" />
+</resources>

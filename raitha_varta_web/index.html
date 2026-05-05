@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Raitha-Varta (Agriculture)</title>
+    <!-- Swiper CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
+    <link rel="stylesheet" href="style.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <!-- Material Icons -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Header -->
+        <header class="app-header">
+            <h1>Raitha-Varta</h1>
+        </header>
+
+        <!-- Category Chips -->
+        <div class="chips-container" id="chipsContainer">
+            <button class="chip active" data-category="All">All</button>
+            <button class="chip" data-category="Paddy">Paddy</button>
+            <button class="chip" data-category="Areca nut">Areca nut</button>
+            <button class="chip" data-category="Coconut">Coconut</button>
+            <button class="chip" data-category="Tomato">Tomato</button>
+        </div>
+
+        <!-- Flash Cards (Swiper) -->
+        <div class="swiper mySwiper">
+            <div class="swiper-wrapper" id="swiperWrapper">
+                <!-- Cards will be dynamically injected here -->
+            </div>
+            <div class="swiper-pagination"></div>
+        </div>
+
+        <!-- Expert Ask FAB -->
+        <button class="fab" id="fabAskExpert">
+            <span class="material-icons">camera_alt</span>
+            Ask Expert
+        </button>
+    </div>
+
+    <!-- Swiper JS -->
+    <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
