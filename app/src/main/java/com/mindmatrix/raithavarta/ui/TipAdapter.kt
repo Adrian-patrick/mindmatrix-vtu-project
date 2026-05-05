@@ -44,10 +44,18 @@ class TipAdapter : ListAdapter<TipEntity, TipAdapter.TipViewHolder>(TipDiffCallb
                 tvFarmerName.visibility = View.GONE
             }
 
+            val imageSource = if (tip.tipImage.startsWith("http")) {
+                tip.tipImage
+            } else {
+                val context = itemView.context
+                context.resources.getIdentifier(tip.tipImage, "drawable", context.packageName)
+            }
+
             Glide.with(itemView.context)
-                .load(tip.imageUrl)
+                .load(imageSource)
                 .centerCrop()
                 .placeholder(android.R.color.darker_gray)
+                .error(android.R.drawable.stat_notify_error)
                 .into(ivTipImage)
         }
     }

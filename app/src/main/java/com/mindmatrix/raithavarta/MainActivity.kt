@@ -1,6 +1,8 @@
 package com.mindmatrix.raithavarta
 
+import android.content.Intent
 import android.os.Bundle
+import android.provider.MediaStore
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
@@ -41,7 +43,12 @@ class MainActivity : AppCompatActivity() {
         populateDatabase()
         
         fabAskExpert.setOnClickListener {
-            Toast.makeText(this, "Expert Ask: Simulated feature. Please capture photo.", Toast.LENGTH_SHORT).show()
+            val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+            if (intent.resolveActivity(packageManager) != null) {
+                startActivity(intent)
+            } else {
+                Toast.makeText(this, "Camera not available", Toast.LENGTH_SHORT).show()
+            }
         }
     }
 
@@ -64,8 +71,9 @@ class MainActivity : AppCompatActivity() {
         }
         
         // Select 'All' by default
-        val firstChip = categoryChipGroup.getChildAt(0) as Chip
-        firstChip.isChecked = true
+        if (categoryChipGroup.childCount > 0) {
+            (categoryChipGroup.getChildAt(0) as Chip).isChecked = true
+        }
     }
 
     private fun loadTips(category: String) {
@@ -78,40 +86,40 @@ class MainActivity : AppCompatActivity() {
 
     private fun populateDatabase() {
         lifecycleScope.launch(Dispatchers.IO) {
-            if (database.tipDao().getCount() == 0) {
-                val initialTips = listOf(
-                    TipEntity(
-                        category = "Paddy",
-                        instruction = "Apply Neem cake during land preparation. It prevents stem borer attacks.",
-                        kannadaInstruction = "ಭೂಮಿ ಸಿದ್ಧಪಡಿಸುವಾಗ ಬೇವಿನ ಹಿಂಡಿ ಹಾಕಿ. ಇದು ಕಾಂಡ ಕೊರೆಯುವ ಹುಳುವನ್ನು ತಡೆಯುತ್ತದೆ.",
-                        imageUrl = "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6d/Paddy_field_in_Bangladesh.jpg/800px-Paddy_field_in_Bangladesh.jpg"
-                    ),
-                    TipEntity(
-                        category = "Areca nut",
-                        instruction = "Spray 1% Bordeaux mixture before monsoon. It prevents fruit rot disease.",
-                        kannadaInstruction = "ಮಳೆಗಾಲಕ್ಕೆ ಮುಂಚೆ 1% ಬೋರ್ಡೋ ಮಿಶ್ರಣ ಸಿಂಪಡಿಸಿ. ಇದು ಕೊಳೆ ರೋಗ ತಡೆಯುತ್ತದೆ.",
-                        imageUrl = "https://upload.wikimedia.org/wikipedia/commons/thumb/6/63/Arecanut_on_Tree.JPG/800px-Arecanut_on_Tree.JPG",
-                        isSuccessStory = true,
-                        farmerName = "Siddappa from Shimoga"
-                    ),
-                    TipEntity(
-                        category = "Tomato",
-                        instruction = "Use sticky yellow traps in your field. It catches whiteflies effectively.",
-                        kannadaInstruction = "ನಿಮ್ಮ ಹೊಲದಲ್ಲಿ ಹಳದಿ ಬಣ್ಣದ ಅಂಟು ಬಲೆ ಬಳಸಿ. ಇದು ಬಿಳಿನೊಣಗಳನ್ನು ಪರಿಣಾಮಕಾರಿಯಾಗಿ ಹಿಡಿಯುತ್ತದೆ.",
-                        imageUrl = "https://upload.wikimedia.org/wikipedia/commons/thumb/8/89/Tomato_je.jpg/800px-Tomato_je.jpg"
-                    ),
-                    TipEntity(
-                        category = "Coconut",
-                        instruction = "Provide adequate summer irrigation and mulch the basin. Prevents button dropping.",
-                        kannadaInstruction = "ಬೇಸಿಗೆಯಲ್ಲಿ ಸಾಕಷ್ಟು ನೀರು ಒದಗಿಸಿ ಮತ್ತು ಬುಡಕ್ಕೆ ಹೊದಿಕೆ ಹಾಕಿ. ಇದು ಕಾಯಿ ಉದುರುವುದನ್ನು ತಡೆಯುತ್ತದೆ.",
-                        imageUrl = "https://upload.wikimedia.org/wikipedia/commons/thumb/2/22/Coconut_tree_Kerala.jpg/800px-Coconut_tree_Kerala.jpg"
-                    )
+            // Delete existing to update with local images
+            database.clearAllTables()
+            
+            val initialTips = listOf(
+                TipEntity(
+                    category = "Paddy",
+                    instruction = "Apply Neem cake during land preparation. It prevents stem borer attacks.",
+                    kannadaInstruction = "ಭೂಮಿ ಸಿದ್ಧಪಡಿಸುವಾಗ ಬೇವಿನ ಹಿಂಡಿ ಹಾಕಿ. ಇದು ಕಾಂಡ ಕೊರೆಯುವ ಹುಳುವನ್ನು ತಡೆಯುತ್ತದೆ.",
+                    tipImage = "paddy_tip"
+                ),
+                TipEntity(
+                    category = "Areca nut",
+                    instruction = "Spray 1% Bordeaux mixture before monsoon. It prevents fruit rot disease.",
+                    kannadaInstruction = "ಮಳೆಗಾಲಕ್ಕೆ ಮುಂಚೆ 1% ಬೋರ್ಡೋ ಮಿಶ್ರಣ ಸಿಂಪಡಿಸಿ. ಇದು ಕೊಳೆ ರೋಗ ತಡೆಯುತ್ತದೆ.",
+                    tipImage = "areca_tip",
+                    isSuccessStory = true,
+                    farmerName = "Siddappa from Shimoga"
+                ),
+                TipEntity(
+                    category = "Tomato",
+                    instruction = "Use sticky yellow traps in your field. It catches whiteflies effectively.",
+                    kannadaInstruction = "ನಿಮ್ಮ ಹೊಲದಲ್ಲಿ ಹಳದಿ ಬಣ್ಣದ ಅಂಟು ಬಲೆ ಬಳಸಿ. ಇದು ಬಿಳಿನೊಣಗಳನ್ನು ಪರಿಣಾಮಕಾರಿಯಾಗಿ ಹಿಡಿಯುತ್ತದೆ.",
+                    tipImage = "tomato_tip"
+                ),
+                TipEntity(
+                    category = "Coconut",
+                    instruction = "Provide adequate summer irrigation and mulch the basin. Prevents button dropping.",
+                    kannadaInstruction = "ಬೇಸಿಗೆಯಲ್ಲಿ ಸಾಕಷ್ಟು ನೀರು ಒದಗಿಸಿ ಮತ್ತು ಬುಡಕ್ಕೆ ಹೊದಿಕೆ ಹಾಕಿ. ಇದು ಕಾಯಿ ಉದುರುವುದನ್ನು ತಡೆಯುತ್ತದೆ.",
+                    tipImage = "coconut_tip"
                 )
-                database.tipDao().insertTips(initialTips)
-                withContext(Dispatchers.Main) {
-                    // Reload 'All' category after populating
-                    loadTips("All")
-                }
+            )
+            database.tipDao().insertTips(initialTips)
+            withContext(Dispatchers.Main) {
+                loadTips("All")
             }
         }
     }

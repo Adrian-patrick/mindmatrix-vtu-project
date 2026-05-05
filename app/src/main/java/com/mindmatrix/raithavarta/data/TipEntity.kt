@@ -8,7 +8,7 @@ data class TipEntity(
     @PrimaryKey(autoGenerate = true) val id: Int = 0,
     val category: String, // Paddy, Areca nut, Coconut, Tomato
     val instruction: String, // 2-sentence instruction
-    val imageUrl: String, // local drawable or URL
+    val tipImage: String, // Resource name or URL
     val isSuccessStory: Boolean = false,
     val farmerName: String? = null,
     val kannadaInstruction: String
